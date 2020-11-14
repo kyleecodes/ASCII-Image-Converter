@@ -5,7 +5,8 @@ ASCII_CHARS = ["@", "#", "$", "%", "?", "*", "+", ";", ":", ",", "."]
 
 def resize(image, new_width=100):
     height, width = image.size
-    new_height = int(new_width * (height / width) / 5)
+    ratio = height / width
+    new_height = int(new_width * ratio)
     return image.resize((new_width, new_height))
 
 
@@ -15,14 +16,12 @@ def to_greyscale(image):
 
 def pixel_to_ascii(image):
     pixels = image.getdata()
-    ascii_str = ""
-    for pixel in pixels:
-        ascii_str += ASCII_CHARS[pixel // 25]
+    ascii_str = "".join([ASCII_CHARS[pixel//25] for pixel in pixels])
     return ascii_str
 
 
 def main():
-    path = "test_images/me.jpg"
+    path = "test_images/dog.jpg"
     image = PIL.Image.open(path)
     # resize image
     image = resize(image)
