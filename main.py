@@ -1,17 +1,15 @@
 import PIL.Image
-import os
-import sys
+
 
 ASCII_CHARS = ["@", "#", "$", "%", "?", "*", "+", ";", ":", ",", "."]
 
 
-#  set width and then create new height based on ratio
+# set width and then create new height based on ratio
 # setting width is necessary for ensuring appropriate widths for your display
 def resize(image, new_width=50):
     # (size() returns 2-tuple width height of pixels)
     width, height = image.size
     print(f"Image width, height: {image.size}")
-    # ratio depends on image proportions
     if height > width:
         ratio = width / height
         print(f"Height greater ratio: {ratio}")
@@ -37,13 +35,8 @@ def pixel_to_ascii(image):
         print(f"Count({count}) Pixel: {pixel} \n")
     # TODO: needs comment on number of ASCII CHARS and 25 -- how to maximize symbols?
     # might want to abstract this out into the main function
-    # added & symbol in front and changed 25 to 17 and I have no idea why that works but it does
-    # if I add a symbol I need to -1 from int pixel index to MOVE UP LIST not add to it
-    # why is 17 the sweet spot?
-    # index depends on image argument
-    # pixel // 25 to make index an int of the ASCII CHARS list
+    # pixel // 25 to make index an int of the ASCII CHARS list and assess for correct contrast (it works)
     # (The // operator is used for truncating division)
-    # TODO: how is this assessing light vs. dark pixels?????
     ascii_str = "".join([ASCII_CHARS[pixel // 25] for pixel in pixels])
     return ascii_str
 
@@ -52,7 +45,7 @@ def print_image(greyscale_image):
     ascii_str = pixel_to_ascii(greyscale_image)
     img_width = greyscale_image.width
     ascii_str_len = len(ascii_str)
-    # official list printed
+    # ascii_img is the official list of ascii characters printed into new image
     ascii_img = ""
     # Split the string based on width  of the image
     for i in range(0, ascii_str_len, img_width):
