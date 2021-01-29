@@ -18,7 +18,7 @@ def resize(image, new_width=50):
         print(f"Width greater ratio: {ratio}")
     # calculate new height based on new width and ratio
     new_height = int(new_width * ratio)
-    # print(f"the ratio: {ratio}")
+    print(f"New image width. height: {new_width}, {new_height}")
     return image.resize((new_width, new_height))
 
 
@@ -29,10 +29,6 @@ def to_greyscale(image):
 def pixel_to_ascii(image):
     pixels = image.getdata()
     print(f"Pixels data: {pixels}")
-    count = 0
-    for pixel in pixels:
-        count += 1
-        print(f"Count({count}) Pixel: {pixel} \n")
     # TODO: needs comment on number of ASCII CHARS and 25 -- how to maximize symbols?
     # might want to abstract this out into the main function
     # pixel // 25 to make index an int of the ASCII CHARS list and assess for correct contrast (it works)
