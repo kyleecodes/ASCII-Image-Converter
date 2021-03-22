@@ -45,20 +45,15 @@ def print_image(greyscale_image):
     ascii_img = ""
     # Split the string based on width  of the image
     for i in range(0, ascii_str_len, img_width):
-        # width line by line of ascii characters printed to official list
         ascii_img += ascii_str[i:i + img_width] + "\n"
-    # save the string to a file
     with open("ascii_image.txt", "w") as f:
         f.write(ascii_img)
 
 
 def main(path):
     image = PIL.Image.open(path)
-    # print(image.format, image.size, image.mode)
     image = resize(image)
-    # print(image.format, image.size, image.mode)
     greyscale_image = to_greyscale(image)
-    # print(greyscale_image.format, greyscale_image.size, greyscale_image.mode)
     print_image(greyscale_image)
 
 
