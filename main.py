@@ -1,11 +1,10 @@
 import PIL.Image
 
 
-ASCII_CHARS = ["@", "#", "$", "%", "?", "*", "+", ";", ":", ",", "."]
+ASCII_CHARS = ("@", "#", "$", "%", "?", "*", "+", ";", ":", ",", ".")
 
 
 # set width and then create new height based on ratio
-# setting width is necessary for ensuring appropriate widths for your display
 def resize(image, new_width=50):
     # (size() returns 2-tuple width height of pixels)
     width, height = image.size
@@ -29,8 +28,6 @@ def to_greyscale(image):
 def pixel_to_ascii(image):
     pixels = image.getdata()
     print(f"Pixels data: {pixels}")
-    # TODO: needs comment on number of ASCII CHARS and 25 -- how to maximize symbols?
-    # might want to abstract this out into the main function
     # pixel // 25 to make index an int of the ASCII CHARS list and assess for correct contrast (it works)
     # (The // operator is used for truncating division)
     ascii_str = "".join([ASCII_CHARS[pixel // 25] for pixel in pixels])
@@ -43,23 +40,17 @@ def print_image(greyscale_image):
     ascii_str_len = len(ascii_str)
     # ascii_img is the official list of ascii characters printed into new image
     ascii_img = ""
-    # Split the string based on width  of the image
+    # Split the string based on width
     for i in range(0, ascii_str_len, img_width):
         # width line by line of ascii characters printed to official list
         ascii_img += ascii_str[i:i + img_width] + "\n"
-    # save the string to a file
     with open("ascii_image.txt", "w") as f:
         f.write(ascii_img)
 
 
 def main(path):
-    image = PIL.Image.open(path)
-    # print(image.format, image.size, image.mode)
-    image = resize(image)
-    # print(image.format, image.size, image.mode)
-    greyscale_image = to_greyscale(image)
-    # print(greyscale_image.format, greyscale_image.size, greyscale_image.mode)
-    print_image(greyscale_image)
+    image = to_greyscale(resize(PIL.Image.open(path)))
+    print_image(image)
 
 
 if __name__ == '__main__':
